@@ -115,9 +115,11 @@ Scott Robertson - [twitter](http://twitter.com/scottymeuk) - [website](http://sc
 If you wish to contribute, follow the following procedure:
 
 * Fork the repository
-* Make your changes
+* Make your changes to the develop branch (or preferably a feature branch)
 * Add tests for your changes
 * Run ALL tests
 * Add your name in the Contributors section of README.md (optional)
+* Push your changes to your fork
 * Issue a pull request
 
+If the build fails on your pull request I will not merge it but I will tell you about it.
