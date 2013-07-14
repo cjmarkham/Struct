@@ -8,7 +8,7 @@ via Composer
 
     {
         "require": {
-            "willishq/struct": "dev-master"
+            "willishq/struct": ">=1.0.0"
         }
     }
 
