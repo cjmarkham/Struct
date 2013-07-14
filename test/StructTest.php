@@ -34,6 +34,14 @@ class StructTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('%$£$%AQWSDERF', $this->struct->key);
     }
 
+    public function testPropertyUnset()
+    {
+        $this->struct->username = "Andrew";
+        $this->assertEquals("Andrew", $this->struct->username);
+        unset($this->struct->username);
+        $this->assertFalse(isset($this->struct->username));
+    }
+
     public function testInvalidPropertyAssignment()
     {
         try {
