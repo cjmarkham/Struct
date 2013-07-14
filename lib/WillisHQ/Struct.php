@@ -30,15 +30,36 @@ abstract class Struct implements JsonSerializable, ArrayAccess
     protected $properties = array();
 
     /**
-     * Populate the properties array with null values
+     * Create the Struct from an array (set to null if the key isn't set in the array)
+     * @param array $properties
      */
-    public function __construct()
+    public function __construct($properties = array())
     {
-        foreach ($this->validProperties as $property) {
-            $this->properties[$property] = null;
+        foreach ($this->validProperties as $key => $value) {
+            $this->properties[$key] = null;
+        }
+        foreach ($properties as $property => $value) {
+            $this->{$property} = $value;
         }
     }
 
+    /**
+     * Repopulate the Struct with new values (or null if the key isn't set in the array)
+     *
+     * @param array $properties
+     * @return Struct
+     */
+    public function __invoke($properties = array())
+    {
+        foreach ($this->validProperties as $key => $value) {
+            $this->properties[$key] = null;
+        }
+        foreach ($properties as $property => $value) {
+            $this->{$property} = $value;
+        }
+
+        return $this;
+    }
     /**
      * Check a property is allowed and (optionally) filter a value before assigning it to the
      * properties array
