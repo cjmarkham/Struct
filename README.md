@@ -60,3 +60,44 @@ Treating your Struct object as a string returns a JSON encoded object:
 Calling json_encode on the struct does the same:
 
     echo json_encode($test); // '{"username" : "Andrew", "email" : "andrew@willisilliw.com"}'
+
+You can populate your struct via an array on construct:
+
+    $test = new TestStruct(
+        array(
+            'username' => 'Andrew',
+            'email' => 'andrew@willisilliw.com'
+        )
+    );
+
+    echo $test->username; // 'Andrew'
+    echo $test->email; // 'andrew@willisilliw.com'
+
+And you can also re-populate a struct by invoking it (like a function)
+
+    $test = new TestStruct(
+        array(
+            'username' => 'Andrew',
+            'email' => 'andrew@willisilliw.com'
+        )
+    );
+
+    echo $test->username; // 'Andrew'
+    echo $test->email; // 'andrew@willisilliw.com'
+
+    $test(
+        array(
+            'username' => 'Test',
+            'email' => 'test@example.com'
+        )
+    )
+
+    echo $test->username; // 'Test'
+    echo $test->email; // 'test@example.com'
+
+While using both of these methods, any missing values will be set to null
+
+## Exceptions
+
+When setting/getting/unsetting and checking isset on invalid properties, Struct will throw a StructException. This
+applies to all methods of setting and getting data. It is also advisable to throw StructExceptions in your filters to make sure you can properly handle such events.
