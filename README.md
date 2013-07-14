@@ -19,6 +19,10 @@ via Composer
 * PHP 5.4+
 * [Composer](http://getcomposer.org/)
 
+## Team
+
+Andrew Willis - [twitter](http://twitter.com/willishq) - [website](http://willisilliw.com) - [linkedin](http://www.linkedin.com/in/willisilliw)
+
 ## Usage
 
 Extend the class into your own Structs
@@ -104,8 +108,7 @@ applies to all methods of setting and getting data. It is also advisable to thro
 
 ## Contributors
 
-@willishq
-@scottymeuk
+Scott Robertson - [twitter](http://twitter.com/scottymeuk) - [website](http://scottrobertson.me/)
 
 [All contributors](https://github.com/willishq/Struct/graphs/contributors)
 
