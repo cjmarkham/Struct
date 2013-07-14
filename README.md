@@ -6,7 +6,7 @@ An easy way to validate the data which is being sent to your functions and metho
 
 Extend the class into your own Structs
 
-    class TestStruct extends WillisHQ\Data\Struct {
+    class TestStruct extends WillisHQ\Struct {
         //
     }
 

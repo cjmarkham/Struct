@@ -10,7 +10,7 @@ use JsonSerializable, ArrayAccess;
  *
  * @author Andrew Willis <andrew@willisilliw.com>
  * @version 0.1
- * @package WillisHQ\Data
+ * @package WillisHQ
  */
 abstract class Struct implements JsonSerializable, ArrayAccess
 {
