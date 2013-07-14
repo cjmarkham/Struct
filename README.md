@@ -101,3 +101,20 @@ While using both of these methods, any missing values will be set to null
 
 When setting/getting/unsetting and checking isset on invalid properties, Struct will throw a StructException. This
 applies to all methods of setting and getting data. It is also advisable to throw StructExceptions in your filters to make sure you can properly handle such events.
+
+## Contributors
+
+@willishq
+@scottymeuk
+
+[All contributors](https://github.com/willishq/Struct/graphs/contributors)
+
+If you wish to contribute, follow the following procedure:
+
+* Fork the repository
+* Make your changes
+* Add tests for your changes
+* Run ALL tests
+* Add your name in the Contributors section of README.md (optional)
+* Issue a pull request
+
