@@ -108,7 +108,8 @@ applies to all methods of setting and getting data. It is also advisable to thro
 
 ## Contributors
 
-Scott Robertson - [twitter](http://twitter.com/scottymeuk) - [website](http://scottrobertson.me/)
+- Scott Robertson - [twitter](https://twitter.com/scottymeuk) - [website](http://scottrobertson.me)
+- Marc Qualie - [twitter](https://twitter.com/marcqualie) - [website](http://marcqualie.com)
 
 [All contributors](https://github.com/willishq/Struct/graphs/contributors)
 
