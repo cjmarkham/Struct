@@ -10,7 +10,7 @@ via Composer
 
     {
         "require": {
-            "willishq/struct": ">=v1.0.2"
+            "willishq/struct": "~1.0"
         }
     }
 
