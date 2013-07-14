@@ -1,0 +1,28 @@
+{
+    "name": "willishq/struct",
+    "description": "An easy way to validate the data which is being sent to your functions and methods",
+    "keywords": [
+        "data",
+        "validation",
+        "structure",
+        "verification"
+    ],
+    "authors": [
+        {
+            "name": "Andrew Willis",
+            "email": "andrew@willisilliw.com",
+            "homepage": "http://willisilliw.com"
+        }
+    ],
+    "homepage": "https://github.com/willishq/Struct",
+    "licence": "MIT",
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "lib",
+            "WillisHQ\\Test": "test"
+        }
+    }
+}

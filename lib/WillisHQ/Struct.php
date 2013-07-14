@@ -1,6 +1,6 @@
 <?php
 
-namespace WillisHQ\Data;
+namespace WillisHQ;
 
 use JsonSerializable, ArrayAccess;
 
@@ -10,7 +10,7 @@ use JsonSerializable, ArrayAccess;
  *
  * @author Andrew Willis <andrew@willisilliw.com>
  * @version 0.1
- * @package WillisHQ\Struct
+ * @package WillisHQ\Data
  */
 abstract class Struct implements JsonSerializable, ArrayAccess
 {
@@ -62,7 +62,8 @@ abstract class Struct implements JsonSerializable, ArrayAccess
             // return the value assigned (which may have been filtered)
             return $this->properties[$property];
         }
-        throw new StructException('Trying to set an invalid property \'' . $property . '\' to the struct \'' . get_called_class() . '\'');
+        throw new StructException('Trying to set an invalid property \'' . $property . '\' to the struct \'' . get_called_class(
+        ) . '\'');
     }
 
     /**
@@ -78,7 +79,8 @@ abstract class Struct implements JsonSerializable, ArrayAccess
         if (in_array($property, $this->validProperties)) {
             return $this->properties[$property];
         }
-        throw new StructException('Trying to access an invalid property \'' . $property . '\' in the Struct \'' . get_called_class() . '\'');
+        throw new StructException('Trying to access an invalid property \'' . $property . '\' in the Struct \'' . get_called_class(
+        ) . '\'');
     }
 
     /**
@@ -93,7 +95,8 @@ abstract class Struct implements JsonSerializable, ArrayAccess
             //we just want to set it to null as the parameter still needs to exist
             $this->properties[$property] = null;
         } else {
-            throw new StructException('Trying to unset an invalid property \'' . $property . '\' in the struct \'' . get_called_class() . '\'');
+            throw new StructException('Trying to unset an invalid property \'' . $property . '\' in the struct \'' . get_called_class(
+            ) . '\'');
         }
     }
 
@@ -109,7 +112,8 @@ abstract class Struct implements JsonSerializable, ArrayAccess
         if (in_array($property, $this->validProperties)) {
             return !is_null($this->properties[$property]);
         }
-        throw new StructException('checking if an invalid property \'' . $property . '\' is set in the struct \'' . get_called_class() . '\'');
+        throw new StructException('checking if an invalid property \'' . $property . '\' is set in the struct \'' . get_called_class(
+        ) . '\'');
     }
 
     /**
