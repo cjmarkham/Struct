@@ -2,6 +2,16 @@
 
 An easy way to validate the data which is being sent to your functions and methods
 
+## Installation
+
+via Composer
+
+    {
+        "require": {
+            "willishq/struct": ">=0.1"
+        }
+    }
+
 ## Requirements
 
 * PHP 5.4+

@@ -15,7 +15,7 @@
         }
     ],
     "homepage": "https://github.com/willishq/Struct",
-    "licence": "MIT",
+    "license": "MIT",
     "require-dev": {
 
         "php": ">=5.4.0",
