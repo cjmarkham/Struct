@@ -1,5 +1,6 @@
 {
     "name": "willishq/struct",
+    "version": "1.0.0",
     "description": "An easy way to validate the data which is being sent to your functions and methods",
     "keywords": [
         "data",
