@@ -39,6 +39,7 @@ class StructTest extends \PHPUnit_Framework_TestCase
         $this->struct->username = "Andrew";
         $this->assertEquals("Andrew", $this->struct->username);
         unset($this->struct->username);
+        $this->assertNull($this->struct->username); // __unset should set value to null
         $this->assertFalse(isset($this->struct->username));
     }
 
