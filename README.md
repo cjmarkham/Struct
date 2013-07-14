@@ -2,6 +2,11 @@
 
 An easy way to validate the data which is being sent to your functions and methods
 
+## Requirements
+
+* PHP 5.4+
+* [Composer](http://getcomposer.org/)
+
 ## Usage
 
 Extend the class into your own Structs
