@@ -1,5 +1,7 @@
 # Struct
 
+[![Build Status](https://travis-ci.org/willishq/Struct.png?branch=master)](https://travis-ci.org/willishq/Struct)
+
 An easy way to validate the data which is being sent to your functions and methods
 
 ## Installation
@@ -58,7 +60,3 @@ Treating your Struct object as a string returns a JSON encoded object:
 Calling json_encode on the struct does the same:
 
     echo json_encode($test); // '{"username" : "Andrew", "email" : "andrew@willisilliw.com"}'
-
-## Build Status
-
-[![Build Status](https://travis-ci.org/willishq/Struct.png?branch=master)](https://travis-ci.org/willishq/Struct)
