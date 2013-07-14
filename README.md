@@ -112,7 +112,7 @@ Scott Robertson - [twitter](http://twitter.com/scottymeuk) - [website](http://sc
 
 [All contributors](https://github.com/willishq/Struct/graphs/contributors)
 
-If you wish to contribute, follow the following procedure:
+#### If you wish to contribute, follow the following procedure:
 
 * Fork the repository
 * Make your changes to the develop branch (or preferably a feature branch)
