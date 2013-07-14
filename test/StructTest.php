@@ -9,6 +9,8 @@
 
 namespace WillisHQ\Test;
 
+use WillisHQ\StructException;
+
 include('TestStruct.php');
 
 class StructTest extends \PHPUnit_Framework_TestCase
@@ -19,6 +21,69 @@ class StructTest extends \PHPUnit_Framework_TestCase
     {
 
         $this->struct = new TestStruct();
+    }
+
+    public function testSetOnConstruct()
+    {
+        $struct = new TestStruct(array(
+            'username' => 'Andrew',
+            'email'    => 'andrew@willisilliw.com',
+            'id'       => 1,
+            'key'      => '%$£$%AQWSDERF'
+        ));
+
+        $this->assertEquals('Andrew', $struct->username);
+        $this->assertEquals('andrew@willisilliw.com', $struct->email);
+        $this->assertEquals('1', $struct->id);
+        $this->assertEquals('%$£$%AQWSDERF', $struct->key);
+
+        unset($struct);
+        $invalid = false;
+        try {
+            $struct = new TestStruct(array(
+                'username' => 'Andrew',
+                'email'    => 'andrew@willisilliw.com',
+                'id'       => 1,
+                'key'      => '%$£$%AQWSDERF',
+                'invalid'  => 'value'
+            ));
+        } catch (StructException $e) {
+            $invalid = true;
+        }
+
+        $this->assertTrue($invalid);
+    }
+
+    public function testSetOninvoke()
+    {
+        $struct = clone $this->struct;
+        $struct(array(
+                'username' => 'Andrew',
+                'email'    => 'andrew@willisilliw.com',
+                'id'       => 1,
+                'key'      => '%$£$%AQWSDERF'
+            ));
+
+        $this->assertEquals('Andrew', $struct->username);
+        $this->assertEquals('andrew@willisilliw.com', $struct->email);
+        $this->assertEquals('1', $struct->id);
+        $this->assertEquals('%$£$%AQWSDERF', $struct->key);
+
+        $invalid = false;
+        try {
+            $struct = clone $this->struct;
+            $struct(array(
+                    'username' => 'Andrew',
+                    'email'    => 'andrew@willisilliw.com',
+                    'id'       => 1,
+                    'key'      => '%$£$%AQWSDERF',
+                    'invalid'  => 'value'
+                ));
+        } catch (StructException $e) {
+            $invalid = true;
+        }
+
+        $this->assertTrue($invalid);
     }
 
     public function testPropertyAssignment()
@@ -69,6 +134,11 @@ class StructTest extends \PHPUnit_Framework_TestCase
 
     public function testValueAsArray()
     {
+        $this->struct->username = "Andrew";
+        $this->struct->email = "andrew@willisilliw.com";
+        $this->struct->id = 1;
+        $this->struct->key = '%$£$%AQWSDERF';
+
         $this->assertEquals($this->struct->id, $this->struct['id']);
         $this->assertEquals($this->struct->username, $this->struct['username']);
         $this->assertEquals($this->struct->email, $this->struct['email']);

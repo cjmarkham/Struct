@@ -16,7 +16,7 @@ class TestStruct extends \WillisHQ\Struct
 
     public function filterUsername($username)
     {
-        if (preg_match('/[a-z0-9]+/i', $username)) {
+        if (preg_match('/[a-zA-Z0-9]+/', $username)) {
             return $username;
         }
 
