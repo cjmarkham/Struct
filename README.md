@@ -33,7 +33,7 @@ Extend the class into your own Structs
 
 Use the protected `validProperties` variable to set which parameters you want to be available to use:
 
-    protected $validProperties = array('username', 'email')
+    protected $validProperties = ['username', 'email']
 
 Add processes to your struct to automagically process data when it is assigned:
 
@@ -89,10 +89,10 @@ Calling json_encode on the struct does the same:
 You can populate your struct via an array on construct:
 
     $test = new TestStruct(
-        array(
+        [
             'username' => 'Andrew',
             'email' => 'andrew@willisilliw.com'
-        )
+        ]
     );
 
     echo $test->username; // 'Andrew'
@@ -101,20 +101,20 @@ You can populate your struct via an array on construct:
 And you can also re-populate a struct by **invoking** it (calling it like a function)
 
     $test = new TestStruct(
-        array(
+        [
             'username' => 'Andrew',
             'email' => 'andrew@willisilliw.com'
-        )
+        ]
     );
 
     echo $test->username; // 'Andrew'
     echo $test->email; // 'andrew@willisilliw.com'
 
     $test(
-        array(
+        [
             'username' => 'Test',
             'email' => 'test@example.com'
-        )
+        ]
     )
 
     echo $test->username; // 'Test'
