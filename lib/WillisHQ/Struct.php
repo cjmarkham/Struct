@@ -4,6 +4,7 @@ namespace WillisHQ;
 
 use JsonSerializable, ArrayAccess;
 
+use Symfony\Component\Validator\Validation;
 /**
  * Class Struct
  *
