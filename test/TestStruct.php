@@ -14,32 +14,32 @@ class TestStruct extends \WillisHQ\Struct
 {
     protected $validProperties = array('username', 'email', 'id', 'key');
 
-    public function filterUsername($username)
-    {
-        if (preg_match('/[a-zA-Z0-9]+/', $username)) {
-            return $username;
-        }
+    protected $validate = [
+        'email' => [
+            'assert' => 'Email',
+        ],
+        'username' => [
+            'assert' => ['length', 'regex'],
+            'options' => [
+                [
+                    'min' => 5,
+                    'max' => 12
+                ],
+                [
+                    'pattern' => '/^[a-z0-9]+$/i',
+                    'message' => "Username needs to be alphanumeric"
+                ]
+            ]
+        ]
+    ];
 
-        throw new \WillisHQ\StructException("Username isn't alphanumeric");
+    public function processUsername($username)
+    {
+        return 'u_' . $username;
     }
 
-    public function filterEmail($email)
+    public function processId($id)
     {
-        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return $email;
-        }
-
-        throw new \WillisHQ\StructException("Email is invalid");
-    }
-
-    public function filterId($id)
-    {
-        if (filter_var($id, FILTER_VALIDATE_INT)) {
-            return (int)$id;
-        }
-
-        throw new \WillisHQ\StructException("Id is required to be an integer");
+        return (int) $id;
     }
 }
