@@ -4,8 +4,6 @@ namespace WillisHQ;
 
 use JsonSerializable, ArrayAccess;
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
 /**
  * Class Struct
  *
