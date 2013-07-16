@@ -25,12 +25,12 @@ class StructTest extends \PHPUnit_Framework_TestCase
 
     public function testSetOnConstruct()
     {
-        $struct = new TestStruct(array(
+        $struct = new TestStruct([
             'username' => 'Andrew',
             'email'    => 'andrew@willisilliw.com',
             'id'       => 1,
             'key'      => '%$£$%AQWSDERF'
-        ));
+        ]);
 
         $this->assertEquals('u_Andrew', $struct->username);
         $this->assertEquals('andrew@willisilliw.com', $struct->email);
@@ -40,13 +40,13 @@ class StructTest extends \PHPUnit_Framework_TestCase
         unset($struct);
         $invalid = false;
         try {
-            new TestStruct(array(
+            new TestStruct([
                 'username' => 'Andrew',
                 'email'    => 'andrew@willisilliw.com',
                 'id'       => 1,
                 'key'      => '%$£$%AQWSDERF',
                 'invalid'  => 'value'
-            ));
+            ]);
         } catch (StructException $e) {
             $invalid = true;
         }
@@ -57,12 +57,12 @@ class StructTest extends \PHPUnit_Framework_TestCase
     public function testSetOninvoke()
     {
         $struct = clone $this->struct;
-        $struct(array(
+        $struct([
                 'username' => 'Andrew',
                 'email'    => 'andrew@willisilliw.com',
                 'id'       => 1,
                 'key'      => '%$£$%AQWSDERF'
-            ));
+            ]);
 
         $this->assertEquals('u_Andrew', $struct->username);
         $this->assertEquals('andrew@willisilliw.com', $struct->email);
@@ -72,13 +72,13 @@ class StructTest extends \PHPUnit_Framework_TestCase
         $invalid = false;
         try {
             $struct = clone $this->struct;
-            $struct(array(
+            $struct([
                     'username' => 'Andrew',
                     'email'    => 'andrew@willisilliw.com',
                     'id'       => 1,
                     'key'      => '%$£$%AQWSDERF',
                     'invalid'  => 'value'
-                ));
+                ]);
         } catch (StructException $e) {
             $invalid = true;
         }

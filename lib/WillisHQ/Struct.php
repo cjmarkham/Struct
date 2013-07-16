@@ -20,21 +20,21 @@ abstract class Struct implements JsonSerializable, ArrayAccess
      *
      * @var array
      */
-    protected $validProperties = array();
+    protected $validProperties = [];
 
     /**
      * Holds the property values
      *
      * @var array
      */
-    protected $properties = array();
+    protected $properties = [];
 
     /**
      * An key => value array of filters using Symfony Validator
      *
      * @var array
      */
-    protected $validate = array();
+    protected $validate = [];
     /**
      * Symfony Validation component
      *
@@ -46,7 +46,7 @@ abstract class Struct implements JsonSerializable, ArrayAccess
      * Create the Struct from an array (set to null if the key isn't set in the array)
      * @param array $properties
      */
-    public function __construct($properties = array())
+    public function __construct($properties = [])
     {
         foreach ($this->validProperties as $key => $value) {
             $this->properties[$key] = null;
@@ -62,7 +62,7 @@ abstract class Struct implements JsonSerializable, ArrayAccess
      * @param array $properties
      * @return Struct
      */
-    public function __invoke($properties = array())
+    public function __invoke($properties = [])
     {
         foreach ($this->validProperties as $key => $value) {
             $this->properties[$key] = null;

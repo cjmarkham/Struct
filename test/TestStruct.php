@@ -12,7 +12,7 @@ namespace WillisHQ\Test;
 
 class TestStruct extends \WillisHQ\Struct
 {
-    protected $validProperties = array('username', 'email', 'id', 'key');
+    protected $validProperties = ['username', 'email', 'id', 'key'];
 
     protected $validate = [
         'email' => [
