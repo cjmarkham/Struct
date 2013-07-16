@@ -4,6 +4,8 @@ namespace WillisHQ;
 
 use JsonSerializable, ArrayAccess;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 /**
  * Class Struct
  *
@@ -14,7 +16,6 @@ use JsonSerializable, ArrayAccess;
  */
 abstract class Struct implements JsonSerializable, ArrayAccess
 {
-
     /**
      * Valid properties for this Struct
      *
@@ -28,6 +29,19 @@ abstract class Struct implements JsonSerializable, ArrayAccess
      * @var array
      */
     protected $properties = array();
+
+    /**
+     * An key => value array of filters using Symfony Validator
+     *
+     * @var array
+     */
+    protected $filters = array();
+    /**
+     * Symfony Validation component
+     *
+     * @var \Symfony\Component\Validator\Validation
+     */
+    private $validation;
 
     /**
      * Create the Struct from an array (set to null if the key isn't set in the array)
@@ -76,10 +90,22 @@ abstract class Struct implements JsonSerializable, ArrayAccess
             $filter = 'filter' . ucfirst($property);
             // if there is a filter method for the property
             if (method_exists($this, $filter)) {
-                $this->properties[$property] = $this->$filter($value);
-            } else {
-                $this->properties[$property] = $value;
+                $value = $this->$filter($value);
             }
+
+            if (isset($this->filters[$property]) && isset($this->filters[$property]['filter'])) {
+                $class =  '\\Symfony\\Component\\Validator\\Constraints\\' . $this->filters[$property]['filter'];
+                $options = null;
+                if (isset($this->filters[$property]['options'])) {
+                    $options = $this->filters[$property]['options'];
+                }
+                $errors = Validation::createValidator()->validateValue($value, new $class($options));
+
+                if ($errors->count()) {
+                    throw new StructException('Trying to set an invalid value for \'' . $property . '\' - \'' . $value . '\'');
+                }
+            }
+            $this->properties[$property] = $value;
             // return the value assigned (which may have been filtered)
             return $this->properties[$property];
         }
@@ -176,7 +202,7 @@ abstract class Struct implements JsonSerializable, ArrayAccess
      */
     public function offsetUnset($property)
     {
-        return $this->__unset($property);
+        $this->__unset($property);
     }
 
     /**

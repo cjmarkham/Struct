@@ -14,6 +14,12 @@ class TestStruct extends \WillisHQ\Struct
 {
     protected $validProperties = array('username', 'email', 'id', 'key');
 
+    protected $filters = array(
+        'email' => array(
+            'filter' => 'Email',
+        ),
+    );
+
     public function filterUsername($username)
     {
         if (preg_match('/[a-zA-Z0-9]+/', $username)) {
@@ -21,17 +27,6 @@ class TestStruct extends \WillisHQ\Struct
         }
 
         throw new \WillisHQ\StructException("Username isn't alphanumeric");
-    }
-
-    public function filterEmail($email)
-    {
-        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return $email;
-        }
-
-        throw new \WillisHQ\StructException("Email is invalid");
     }
 
     public function filterId($id)

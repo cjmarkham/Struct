@@ -132,6 +132,18 @@ class StructTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($invalid);
     }
 
+    public function testValidatorFilterFail()
+    {
+        try {
+            $this->struct->email = "notanemailaddress";
+            $invalid = false;
+        } catch (\WillisHQ\StructException $e) {
+            $invalid = true;
+        }
+        $this->struct->email = "andrew@willisilliw.com";
+        $this->assertTrue($invalid);
+    }
+
     public function testValueAsArray()
     {
         $this->struct->username = "Andrew";
