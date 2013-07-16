@@ -34,7 +34,7 @@ abstract class Struct implements JsonSerializable, ArrayAccess
      *
      * @var array
      */
-    protected $filters = array();
+    protected $validate = array();
     /**
      * Symfony Validation component
      *
@@ -74,7 +74,7 @@ abstract class Struct implements JsonSerializable, ArrayAccess
         return $this;
     }
     /**
-     * Check a property is allowed and (optionally) filter a value before assigning it to the
+     * Check a property is allowed and (optionally) process and validate a value before assigning it to the
      * properties array
      *
      * @param string $property
@@ -84,28 +84,57 @@ abstract class Struct implements JsonSerializable, ArrayAccess
      */
     public function __set($property, $value)
     {
+
+        if (isset($this->validate[$property]) && isset($this->validate[$property]['assert'])) {
+            $validate = $this->validate[$property];
+            $namespace = '\\Symfony\\Component\\Validator\\Constraints\\';
+            $constraints = '';
+
+            if (is_array($validate['assert'])) {
+                $constraints = [];
+
+                foreach ($validate['assert'] as $key => $assert) {
+
+                    $class = $namespace . $assert;
+                    $options = null;
+
+                    if (isset($validate['options'][$key])) {
+                        $options = $validate['options'][$key];
+                    }
+
+                    $constraints[] = new $class($options);
+                }
+            } else {
+
+                $class =  $namespace . $validate['assert'];
+                $options = null;
+
+                if (isset($validate['options'])) {
+                    $options = $validate['options'];
+                }
+
+                $constraints = new $class($options);
+
+            }
+
+            $errors = Validation::createValidator()->validateValue($value, $constraints);
+
+            if ($errors->count()) {
+                throw new StructException('Trying to set an invalid value for \'' . $property . '\' - \'' . $value . '\'');
+            }
+        }
+
+
         // if property name is valid for this struct
         if (in_array($property, $this->validProperties)) {
-            $filter = 'filter' . ucfirst($property);
-            // if there is a filter method for the property
-            if (method_exists($this, $filter)) {
-                $value = $this->$filter($value);
+            $process = 'process' . ucfirst($property);
+            // if there is a process method for the property
+            if (method_exists($this, $process)) {
+                $value = $this->$process($value);
             }
 
-            if (isset($this->filters[$property]) && isset($this->filters[$property]['filter'])) {
-                $class =  '\\Symfony\\Component\\Validator\\Constraints\\' . $this->filters[$property]['filter'];
-                $options = null;
-                if (isset($this->filters[$property]['options'])) {
-                    $options = $this->filters[$property]['options'];
-                }
-                $errors = Validation::createValidator()->validateValue($value, new $class($options));
-
-                if ($errors->count()) {
-                    throw new StructException('Trying to set an invalid value for \'' . $property . '\' - \'' . $value . '\'');
-                }
-            }
             $this->properties[$property] = $value;
-            // return the value assigned (which may have been filtered)
+            // return the value assigned (which may have been processed)
             return $this->properties[$property];
         }
         throw new StructException('Trying to set an invalid property \'' . $property . '\' to the struct \'' . get_called_class(

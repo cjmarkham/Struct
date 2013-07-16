@@ -32,7 +32,7 @@ class StructTest extends \PHPUnit_Framework_TestCase
             'key'      => '%$£$%AQWSDERF'
         ));
 
-        $this->assertEquals('Andrew', $struct->username);
+        $this->assertEquals('u_Andrew', $struct->username);
         $this->assertEquals('andrew@willisilliw.com', $struct->email);
         $this->assertEquals('1', $struct->id);
         $this->assertEquals('%$£$%AQWSDERF', $struct->key);
@@ -40,7 +40,7 @@ class StructTest extends \PHPUnit_Framework_TestCase
         unset($struct);
         $invalid = false;
         try {
-            $struct = new TestStruct(array(
+            new TestStruct(array(
                 'username' => 'Andrew',
                 'email'    => 'andrew@willisilliw.com',
                 'id'       => 1,
@@ -64,7 +64,7 @@ class StructTest extends \PHPUnit_Framework_TestCase
                 'key'      => '%$£$%AQWSDERF'
             ));
 
-        $this->assertEquals('Andrew', $struct->username);
+        $this->assertEquals('u_Andrew', $struct->username);
         $this->assertEquals('andrew@willisilliw.com', $struct->email);
         $this->assertEquals('1', $struct->id);
         $this->assertEquals('%$£$%AQWSDERF', $struct->key);
@@ -93,7 +93,7 @@ class StructTest extends \PHPUnit_Framework_TestCase
         $this->struct->id = 1;
         $this->struct->key = '%$£$%AQWSDERF';
 
-        $this->assertEquals("Andrew", $this->struct->username);
+        $this->assertEquals("u_Andrew", $this->struct->username);
         $this->assertEquals("andrew@willisilliw.com", $this->struct->email);
         $this->assertEquals(1, $this->struct->id);
         $this->assertEquals('%$£$%AQWSDERF', $this->struct->key);
@@ -102,7 +102,7 @@ class StructTest extends \PHPUnit_Framework_TestCase
     public function testPropertyUnset()
     {
         $this->struct->username = "Andrew";
-        $this->assertEquals("Andrew", $this->struct->username);
+        $this->assertEquals("u_Andrew", $this->struct->username);
         unset($this->struct->username);
         $this->assertNull($this->struct->username); // __unset should set value to null
         $this->assertFalse(isset($this->struct->username));
@@ -120,29 +120,35 @@ class StructTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($invalid);
     }
 
-    public function testFilterFail()
+    public function testValidateFail()
     {
         try {
-            $this->struct->id = 'Hello';
+            $this->struct->username = 'a';
             $invalid = false;
         } catch (\WillisHQ\StructException $e) {
             $invalid = true;
         }
-        $this->struct->id = 1;
         $this->assertTrue($invalid);
+        try {
+            $this->struct->username = '!';
+            $invalid = false;
+        } catch (\WillisHQ\StructException $e) {
+            $invalid = true;
+        }
+        $this->struct->username = 'Andrew';
+        $this->assertTrue($invalid);
+        try {
+            $this->struct->email = 'notanemail';
+            $invalid = false;
+        } catch (\WillisHQ\StructException $e) {
+            $invalid = true;
+        }
+        $this->struct->email = 'andrew@willisilliw.com';
+        $this->assertTrue($invalid);
+
     }
 
-    public function testValidatorFilterFail()
-    {
-        try {
-            $this->struct->email = "notanemailaddress";
-            $invalid = false;
-        } catch (\WillisHQ\StructException $e) {
-            $invalid = true;
-        }
-        $this->struct->email = "andrew@willisilliw.com";
-        $this->assertTrue($invalid);
-    }
+
 
     public function testValueAsArray()
     {

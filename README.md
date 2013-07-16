@@ -35,16 +35,37 @@ Use the protected `validProperties` variable to set which parameters you want to
 
     protected $validProperties = array('username', 'email')
 
-Add filters to your struct to automagically filter data when it is assigned:
+Add processes to your struct to automagically process data when it is assigned:
 
-    public function filterEmail($email) {
-        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return $email;
-        }
-        throw new StructException('Invalid email provided');
+    public function processUsername($username) {
+        return 'u_' . $username;
     }
+
+Add Symfony Validation constraints to your struct to check the validity of the data. The value of the `options` field will be passed as the argument to the selected constraint.
+
+    protected $validate = [
+        'email' => [
+            'assert' => 'Email',
+            'options' => null
+        ]
+    ];
+
+You can pass an array of filters and options to the validator too:
+
+    protected $validate = [
+        'username' => [
+            'assert' => ['length', 'regex'],
+            'options' => [
+                [
+                    'min' => 5,
+                    'max' => 12
+                ],[
+                    'pattern' => '/^[a-z0-9]+$/i',
+                    'message' => "Username needs to be alphanumeric"
+                ]
+            ]
+        ]
+    ];
 
 Create an instance of your struct:
 
