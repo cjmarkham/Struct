@@ -95,7 +95,7 @@ abstract class Struct implements JsonSerializable, ArrayAccess
 
                 foreach ($validate['assert'] as $key => $assert) {
 
-                    $class = $namespace . $assert;
+                    $class = $namespace . ucfirst($assert);
                     $options = null;
 
                     if (isset($validate['options'][$key])) {
@@ -106,7 +106,7 @@ abstract class Struct implements JsonSerializable, ArrayAccess
                 }
             } else {
 
-                $class =  $namespace . $validate['assert'];
+                $class =  $namespace . ucfirst($validate['assert']);
                 $options = null;
 
                 if (isset($validate['options'])) {
