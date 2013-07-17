@@ -23,6 +23,11 @@ via Composer
 
 Andrew Willis - [twitter](http://twitter.com/willishq) - [website](http://willisilliw.com) - [linkedin](http://www.linkedin.com/in/willisilliw)
 
+### Contributors
+
+- Scott Robertson - [twitter](https://twitter.com/scottymeuk) - [website](http://scottrobertson.me)
+- Marc Qualie - [twitter](https://twitter.com/marcqualie) - [website](http://marcqualie.com)
+
 ## Usage
 
 Extend the class into your own Structs
@@ -126,11 +131,6 @@ While using both of these methods, any missing values will be set to null
 
 When setting/getting/unsetting and checking isset on invalid properties, Struct will throw a StructException. This
 applies to all methods of setting and getting data. It is also advisable to throw StructExceptions in your filters to make sure you can properly handle such events.
-
-## Contributors
-
-- Scott Robertson - [twitter](https://twitter.com/scottymeuk) - [website](http://scottrobertson.me)
-- Marc Qualie - [twitter](https://twitter.com/marcqualie) - [website](http://marcqualie.com)
 
 [All contributors](https://github.com/willishq/Struct/graphs/contributors)
 
