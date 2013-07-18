@@ -35,12 +35,6 @@ abstract class Struct implements JsonSerializable, ArrayAccess
      * @var array
      */
     protected $validate = [];
-    /**
-     * Symfony Validation component
-     *
-     * @var \Symfony\Component\Validator\Validation
-     */
-    private $validation;
 
     /**
      * Create the Struct from an array (set to null if the key isn't set in the array)
@@ -88,7 +82,6 @@ abstract class Struct implements JsonSerializable, ArrayAccess
         if (isset($this->validate[$property]) && isset($this->validate[$property]['assert'])) {
             $validate = $this->validate[$property];
             $namespace = '\\Symfony\\Component\\Validator\\Constraints\\';
-            $constraints = '';
 
             if (is_array($validate['assert'])) {
                 $constraints = [];
